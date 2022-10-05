@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Boilerplate api documentation
+  description: |-
+    Lorum ipsum
+  contact:
+    email: jasperdrost93@gmail.com
+  version: 0.0.1-alpha.1
+tags:
+  - name: Greeting
+    description: API documentation for restful API service
+
+paths:
+  /greeting:
+    get:
+      tags:
+        - Greeting
+      summary: Welome to the API
+      description: Receive a friendly welcome message
+      operationId: welcome
+      parameters:
+        - in: header
+          name: X-User-ID
+          schema:
+            type: integer
+            example: 20
+          required: true
+          description: Numeric ID of the user
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Greeting'
+        405:
+          description: Invalid input
+      security:
+        - api_key: []
+
+components:
+  schemas:
+    Greeting:
+      required:
+        - id
+        - content
+      type: object
+      properties:
+        id:
+          type: number
+          example: 20
+        content:
+          type: string
+          example: Welcome to the API
+          description: The content of the greeting message
+
+  responses:
+    Greeting:
+      $ref: '#/components/schemas/Greeting'
